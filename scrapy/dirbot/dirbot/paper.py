@@ -1,6 +1,5 @@
 from scrapy.item import Item, Field
 
-
 class Paper(Item):
 	category=Field()
 	title=Field()
