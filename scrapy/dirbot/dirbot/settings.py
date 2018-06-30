@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-  
 # Scrapy settings for dirbot project
 
+
+
 BOT_NAME = 'test' 
 
 SPIDER_MODULES = ['dirbot.spiders','dirbot.spiders.mzyfz','dirbot.spiders.zgfyw']
@@ -13,7 +15,34 @@ COOKIES_ENABLED=False
 DOWNLOAD_DELAY=3
 
 
-  
+
+
+#Splash服务器地址
+SPLASH_URL = 'http://localhost:32770'                                                                      
+
+#开启两个下载中间件，并调整HttpCompressionMiddlewares的次序                                               
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy_splash.SplashCookiesMiddleware': 723,
+    'scrapy_splash.SplashMiddleware':725,
+    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware':810,   
+    'dirbot.middlewares.RandomUserAgent': 1,
+    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,                      
+}
+
+#设置去重过滤器
+DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
+
+#用来支持cache_args（可选）
+SPIDER_MIDDLEWARES = {
+    'scrapy_splash.SplashDeduplicateArgsMiddleware':100,
+}
+
+DUPEFILTER_CLASS ='scrapy_splash.SplashAwareDupeFilter'
+
+HTTPCACHE_STORAGE ='scrapy_splash.SplashAwareFSCacheStorage'
+
+
+
 
 #ITEM_PIPELINES = {'dirbot.pipelines.FilterWordsPipeline': 1}
 
@@ -52,10 +81,10 @@ PROXIES = [
 ]
 
 
-DOWNLOADER_MIDDLEWARES = {
-#    'cnblogs.middlewares.MyCustomDownloaderMiddleware': 543,
-    'dirbot.middlewares.RandomUserAgent': 1,
-    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
-    #'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
-   # 'dirbot.middlewares.ProxyMiddleware': 100,
-}
+# DOWNLOADER_MIDDLEWARES = {
+# #    'cnblogs.middlewares.MyCustomDownloaderMiddleware': 543,
+#     'dirbot.middlewares.RandomUserAgent': 1,
+#     'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
+#     #'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
+#    # 'dirbot.middlewares.ProxyMiddleware': 100,
+# }
