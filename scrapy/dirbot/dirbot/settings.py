@@ -44,7 +44,10 @@ HTTPCACHE_STORAGE ='scrapy_splash.SplashAwareFSCacheStorage'
 
 
 
-#ITEM_PIPELINES = {'dirbot.pipelines.FilterWordsPipeline': 1}
+ITEM_PIPELINES = {
+    # 'dirbot.pipelines.FilterWordsPipeline': 1,
+    'dirbot.pipelines.ElasticSearchPipeline':2
+    }
 
 FEED_EXPORTERS = {  
     'json': 'dirbot.spiders.CustomJsonLinesItemExporter.CustomJsonLinesItemExporter',  
